@@ -16,23 +16,31 @@ const renderWithRedux = (
 }
 
  afterEach(cleanup);
+ describe('Testing TestRedux component',()=>{
+    describe('When Component renders',()=>{
 
-it('checks initial state is equal to 0', () => {
-    const { getByTestId } = renderWithRedux(<TestRedux />)
-    expect(getByTestId('number')).toHaveTextContent('0')
-  })
-  it('increments the counter through redux', () => {
-    const { getByTestId } = renderWithRedux(<TestRedux />, 
-      {initialState: {number: 5}
-  })
-    fireEvent.click(getByTestId('increment-button'))
-    expect(getByTestId('number')).toHaveTextContent('6')
-  })
-  
-  it('decrements the counter through redux', () => {
-    const { getByTestId} = renderWithRedux(<TestRedux />, {
-      initialState: { number: 100 },
+        it('should have initial state equal to 0', () => {
+            const { getByTestId } = renderWithRedux(<TestRedux />)
+            expect(getByTestId('number')).toHaveTextContent('0')
+          })
+
+          it('should increment the number through redux', () => {
+            const { getByTestId } = renderWithRedux(<TestRedux />, 
+              {initialState: {number: 5}
+          })
+            fireEvent.click(getByTestId('increment-button'))
+            expect(getByTestId('number')).toHaveTextContent('6')
+          })
+          
+          it('should decrement the number through redux', () => {
+            const { getByTestId} = renderWithRedux(<TestRedux />, {
+              initialState: { number: 5 },
+            })
+            fireEvent.click(getByTestId('decrement-button'))
+            expect(getByTestId('number')).toHaveTextContent('4')
+          })
     })
-    fireEvent.click(getByTestId('decrement-button'))
-    expect(getByTestId('number')).toHaveTextContent('99')
-  })
+})
+
+
+
